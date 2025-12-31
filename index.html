@@ -3,13 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome 2026 | Zed - Kelvin</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+    <title>2026 Arrival | Zed - Kelvin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --glass-bg: rgba(255, 255, 255, 0.1);
             --glass-border: rgba(255, 255, 255, 0.2);
-            --text-color: #ffffff;
+            --accent: #ffffff;
+            --bg-overlay: rgba(0, 0, 0, 0.6);
+        }
+
+        /* Celebration Theme Variables */
+        .celebration-mode {
+            --glass-bg: rgba(255, 215, 0, 0.15); /* Golden tint */
+            --glass-border: rgba(255, 215, 0, 0.4);
+            --accent: #ffd700;
+            --bg-overlay: rgba(20, 15, 0, 0.7);
         }
 
         body, html {
@@ -17,125 +26,113 @@
             padding: 0;
             height: 100%;
             font-family: 'Inter', sans-serif;
-            color: var(--text-color);
+            color: white;
             overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Using your background.png with a fallback to a dark gradient */
-            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+            transition: background 2s ease;
+            background: linear-gradient(var(--bg-overlay), var(--bg-overlay)), 
                         url('background.png'), 
-                        linear-gradient(135deg, #1e1e2f 0%, #000000 100%);
+                        linear-gradient(135deg, #000 0%, #1a1a1a 100%);
             background-size: cover;
             background-position: center;
         }
 
         .container {
             text-align: center;
-            padding: 2rem;
+            padding: 3rem 2rem;
             max-width: 600px;
-            width: 90%;
-            border-radius: 30px;
+            width: 85%;
+            border-radius: 40px;
             background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             border: 1px solid var(--glass-border);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            animation: fadeIn 1.5s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            transition: all 1.5s ease;
         }
 
         h1 {
             font-weight: 300;
-            letter-spacing: -1px;
-            margin-bottom: 0.5rem;
-            font-size: 1.2rem;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            font-size: 1rem;
             text-transform: uppercase;
-            opacity: 0.8;
         }
 
-        /* Countdown Grid */
         #countdown {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
+            gap: 15px;
             margin: 2rem 0;
         }
 
-        .time-box {
-            display: flex;
-            flex-direction: column;
+        .time-box { display: flex; flex-direction: column; }
+        .number { font-size: 3rem; font-weight: 800; }
+        .label { font-size: 0.6rem; text-transform: uppercase; opacity: 0.6; }
+
+        /* New Year Content (Hidden by default) */
+        #new-year-content {
+            display: none;
+            animation: scaleUp 1s forwards;
         }
 
-        .number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            line-height: 1;
+        @keyframes scaleUp {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
 
-        .label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 5px;
-            opacity: 0.6;
+        .happy-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin: 0;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
         }
 
-        /* Prayer Message Styling */
+        .prayer-theme {
+            font-size: 1.4rem;
+            margin: 1rem 0;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
         .message {
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--glass-border);
-            line-height: 1.6;
+            margin-top: 1.5rem;
+            line-height: 1.7;
             font-weight: 300;
             font-style: italic;
-            font-size: 1.05rem;
+            font-size: 1.1rem;
         }
 
         .signature {
-            margin-top: 1.5rem;
+            margin-top: 2rem;
             font-weight: 500;
             letter-spacing: 1px;
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
-        /* Subtle glow for the countdown numbers */
-        .number {
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            color: var(--accent);
         }
     </style>
 </head>
-<body>
+<body id="body">
 
-    <div class="container">
-        <h1>Counting down to 2026</h1>
-        
-        <div id="countdown">
-            <div class="time-box">
-                <span class="number" id="days">00</span>
-                <span class="label">Days</span>
-            </div>
-            <div class="time-box">
-                <span class="number" id="hours">00</span>
-                <span class="label">Hours</span>
-            </div>
-            <div class="time-box">
-                <span class="number" id="minutes">00</span>
-                <span class="label">Min</span>
-            </div>
-            <div class="time-box">
-                <span class="number" id="seconds">00</span>
-                <span class="label">Sec</span>
+    <div class="container" id="main-card">
+        <div id="countdown-state">
+            <h1>Preparing for 2026</h1>
+            <div id="countdown">
+                <div class="time-box"><span class="number" id="days">00</span><span class="label">Days</span></div>
+                <div class="time-box"><span class="number" id="hours">00</span><span class="label">Hours</span></div>
+                <div class="time-box"><span class="number" id="minutes">00</span><span class="label">Min</span></div>
+                <div class="time-box"><span class="number" id="seconds">00</span><span class="label">Sec</span></div>
             </div>
         </div>
 
-        <div class="message">
-            "As we approach the threshold of a new year, I pray that God's grace clears your path and His light directs every step you take. May 2026 be a year of breakthrough, divine peace, and overflowing joy for you and your household. In Jesus' name, Amen."
+        <div id="new-year-content">
+            <h2 class="happy-title">HAPPY 2026</h2>
+            <div class="prayer-theme">"The Year of Divine Manifestation"</div>
+            <div class="message">
+                "The old has passed, and the new has come! I pray that in this year 2026, doors that were previously shut fly open by the power of God. May you walk in health, supernatural provision, and a deeper intimacy with Christ than ever before. Every seed you sowed in tears last year, may you reap in joy now. In Jesus' mighty name, Amen."
+            </div>
             <div class="signature">— Zed - Kelvin</div>
         </div>
     </div>
@@ -146,27 +143,28 @@
             const now = new Date().getTime();
             const difference = targetDate - now;
 
-            // Time calculations
+            if (difference <= 0) {
+                // Trigger New Year Theme
+                clearInterval(interval);
+                document.getElementById('body').classList.add('celebration-mode');
+                document.getElementById('countdown-state').style.display = 'none';
+                document.getElementById('new-year-content').style.display = 'block';
+                return;
+            }
+
             const d = Math.floor(difference / (1000 * 60 * 60 * 24));
             const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
             const s = Math.floor((difference % (1000 * 60)) / 1000);
 
-            // Output the results
             document.getElementById('days').innerText = d.toString().padStart(2, '0');
             document.getElementById('hours').innerText = h.toString().padStart(2, '0');
             document.getElementById('minutes').innerText = m.toString().padStart(2, '0');
             document.getElementById('seconds').innerText = s.toString().padStart(2, '0');
-
-            if (difference < 0) {
-                clearInterval(interval);
-                document.querySelector('.container h1').innerText = "Happy New Year 2026!";
-                document.getElementById('countdown').style.display = 'none';
-            }
         }
 
         const interval = setInterval(updateCountdown, 1000);
-        updateCountdown(); // Run immediately on load
+        updateCountdown();
     </script>
 </body>
 </html>
